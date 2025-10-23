@@ -1476,7 +1476,7 @@ std::string setHETriggerCalibration()
     calibrationSelectPins[1] = doc["muxSelectPin1"];
     calibrationSelectPins[2] = doc["muxSelectPin2"];
     calibrationSelectPins[3] = doc["muxSelectPin3"];
-    
+
     calibrationADCPins[0] = doc["muxADCPin0"];
     calibrationADCPins[1] = doc["muxADCPin1"];
     calibrationADCPins[2] = doc["muxADCPin2"];
@@ -1487,15 +1487,15 @@ std::string setHETriggerCalibration()
     ema_smoothing = (float)calibrationSmoothingFactor / 100.f; // 99 = max smoothing factor
 
     for (int i = 0; i < 4; i++) {
-        if ( calibrationSelectPins[i] != -1 && 
-                calibrationSelectPins[i] >= 0 && 
+        if ( calibrationSelectPins[i] != -1 &&
+                calibrationSelectPins[i] >= 0 &&
                 calibrationSelectPins[i] <= 29 ) {
             gpio_init(calibrationSelectPins[i]);
             gpio_set_dir(calibrationSelectPins[i], GPIO_OUT);
             gpio_put(calibrationSelectPins[i], 0);
         }
-        if ( calibrationADCPins[i] != -1 && 
-                calibrationADCPins[i] >= 26 && 
+        if ( calibrationADCPins[i] != -1 &&
+                calibrationADCPins[i] >= 26 &&
                 calibrationADCPins[i] <= 29 ) {
             adc_gpio_init(calibrationADCPins[i]);
         }
@@ -1589,9 +1589,9 @@ std::string getHETriggerOptions()
 {
     const size_t capacity = JSON_OBJECT_SIZE(500);
     DynamicJsonDocument doc(capacity);
-    
+
     HETriggerInfo * heTriggers = Storage::getInstance().getAddonOptions().heTriggerOptions.triggers;
-    
+
     JsonArray triggerList = doc.createNestedArray("triggers");
     for(int i = 0; i < 32; i++) {
         JsonObject trigger = triggerList.createNestedObject();
@@ -1618,7 +1618,7 @@ std::string setHETriggerOptions()
         heTriggers[i].max = doc["triggers"][i]["max"];
         heTriggers[i].polarity = doc["triggers"][i]["polarity"];
     }
-    
+
     Storage::getInstance().getAddonOptions().heTriggerOptions.triggers_count = 32;
     EventManager::getInstance().triggerEvent(new GPStorageSaveEvent(true));
 
@@ -1872,6 +1872,13 @@ std::string setAddonOptions()
     docToPin(heTriggerOptions.muxADCPin3, doc, "muxADCPin3");
     docToValue(heTriggerOptions.emaSmoothing, doc, "heTriggerSmoothing");
     docToValue(heTriggerOptions.smoothingFactor, doc, "heTriggerSmoothingFactor");
+
+    ToggleJoystickOptions& toggleJoystickOptions = Storage::getInstance().getAddonOptions().toggleJoystickOptions;
+    docToValue(toggleJoystickOptions.primaryToggle, doc, "toggleJoystickPrimaryToggle");
+    docToValue(toggleJoystickOptions.secondaryToggle, doc, "toggleJoystickSecondaryToggle");
+		docToValue(toggleJoystickOptions.primaryTiltFactor, doc, "toggleJoystickPrimaryTiltFactor");
+    docToValue(toggleJoystickOptions.secondaryTiltFactor, doc, "toggleJoystickSecondaryTiltFactor");
+    docToValue(toggleJoystickOptions.enabled, doc, "ToggleJoystickAddonEnabled");
 
     EventManager::getInstance().triggerEvent(new GPStorageSaveEvent(true));
 
@@ -2326,6 +2333,13 @@ std::string getAddonOptions()
     writeDoc(doc, "muxADCPin3", cleanPin(heTriggerOptions.muxADCPin3));
     writeDoc(doc, "heTriggerSmoothing", heTriggerOptions.emaSmoothing);
     writeDoc(doc, "heTriggerSmoothingFactor", heTriggerOptions.smoothingFactor);
+
+    const ToggleJoystickOptions& toggleJoystickOptions = Storage::getInstance().getAddonOptions().toggleJoystickOptions;
+    writeDoc(doc, "toggleJoystickPrimaryToggle", toggleJoystickOptions.primaryToggle);
+    writeDoc(doc, "toggleJoystickSecondaryToggle", toggleJoystickOptions.secondaryToggle);
+		writeDoc(doc, "toggleJoystickPrimaryTiltFactor", toggleJoystickOptions.primaryTiltFactor);
+    writeDoc(doc, "toggleJoystickSecondaryTiltFactor", toggleJoystickOptions.secondaryTiltFactor);
+    writeDoc(doc, "ToggleJoystickAddonEnabled", toggleJoystickOptions.enabled);
 
     return serialize_json(doc);
 }

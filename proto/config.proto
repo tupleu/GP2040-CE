@@ -916,6 +916,7 @@ message AddonOptions
     optional GamepadUSBHostOptions gamepadUSBHostOptions = 28;
     optional TG16Options tg16Options = 29;
     optional HETriggerOptions heTriggerOptions = 30;
+    optional ToggleJoystickOptions toggleJoystickOptions = 31;
 }
 
 message MigrationHistory
@@ -945,4 +946,13 @@ message Config
     optional GpioMappings gpioMappings = 13;
     optional MigrationHistory migrations = 14;
     optional PeripheralOptions peripheralOptions = 15;
+}
+
+message ToggleJoystickOptions
+{
+    optional bool enabled = 1;
+    optional DpadMode primaryToggle = 2;
+    optional DpadMode secondaryToggle = 3;
+    optional uint32 primaryTiltFactor = 4;
+    optional uint32 secondaryTiltFactor = 5;
 }

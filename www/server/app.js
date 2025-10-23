@@ -577,6 +577,7 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		tg16PadDataPin3: -1,
 		TG16padAddonEnabled: 1,
 		HETriggerEnabled: 1,
+		ToggleJoystickAddonEnabled: 1,
 		usedPins: Object.values(picoController),
 	});
 });

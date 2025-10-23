@@ -356,6 +356,11 @@ enum GpioAction
     MODE_WHEEL_PEDAL_GAS         = 128;
     MODE_WHEEL_PEDAL_BRAKE       = 129;
     MODE_WHEEL_PEDAL_CLUTCH      = 130;
+
+    BUTTON_PRESS_TJ_TOGGLE_1     = 131;
+    BUTTON_PRESS_TJ_TOGGLE_2     = 132;
+    BUTTON_PRESS_TJ_TILT_1       = 133;
+    BUTTON_PRESS_TJ_TILT_2       = 134;
 }
 
 enum GpioDirection

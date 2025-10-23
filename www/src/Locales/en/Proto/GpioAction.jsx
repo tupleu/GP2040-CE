@@ -132,4 +132,8 @@ export default {
 	'MODE_WHEEL_PEDAL_GAS': 'Gas Pedal',
 	'MODE_WHEEL_PEDAL_BRAKE': 'Brake Pedal',
 	'MODE_WHEEL_PEDAL_CLUTCH': 'Clutch Pedal',
+	'BUTTON_PRESS_TJ_TOGGLE_1': 'Joystick Toggle Dpad Primary',
+	'BUTTON_PRESS_TJ_TOGGLE_2': 'Joystick Toggle Dpad Secondary',
+	'BUTTON_PRESS_TJ_TILT_1': 'Joystick Toggle Tilt Primary',
+	'BUTTON_PRESS_TJ_TILT_2': 'Joystick Toggle Tilt Secondary',
 };
